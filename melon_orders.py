@@ -1,5 +1,10 @@
 from random import randint
 
+class TooManyMelonsError(ValueError):
+    """Raise error when someone attempts to create an order over 100"""
+    pass
+
+
 class AbstractMelonOrder(object): 
     """Parent class for all melon orders"""
 # parent class has three methods shared by both domestic and international 
@@ -12,6 +17,8 @@ class AbstractMelonOrder(object):
         self.shipped = False
         self.country_code = country_code
         self.tax = 0.08
+        if self.qty > 100:
+            raise TooManyMelonsError("No more than 100 melons!")
 
     def mark_shipped(self):
         """Set shipped to true."""
@@ -57,7 +64,7 @@ class InternationalMelonOrder(AbstractMelonOrder):
         #if qty less than 10 then increase total by 3 dollars because international
 
         new_total = super(InternationalMelonOrder, self).get_total()
-        if self.qty < 3:
+        if self.qty < 10:
             return new_total + 3
         return new_total
 
@@ -81,3 +88,5 @@ class GovernmentMelonOrder(AbstractMelonOrder):
     def mark_inspection(self, passed):
         """Set passed_inspection to True if passed."""
         self.passed_inspection = passed
+
+
