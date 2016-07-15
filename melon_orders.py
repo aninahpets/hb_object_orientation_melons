@@ -1,3 +1,4 @@
+from random import randint
 
 class AbstractMelonOrder(object): 
     """Parent class for all melon orders"""
@@ -17,10 +18,14 @@ class AbstractMelonOrder(object):
 
         self.shipped = True
 
+    def get_base_price(self):
+        return randint(5, 9)
+
     def get_total(self): 
         """Calculate price."""
 
-        base_price = float(5)
+        base_price = self.get_base_price()
+        # base_price = float(5)
         if self.species == "Christmas":
             base_price *= float(1.5)
         total = (float(1) + self.tax) * float(self.qty) * float(base_price)
