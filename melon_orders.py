@@ -18,7 +18,8 @@ class AbstractMelonOrder(object):
         self.country_code = country_code
         self.tax = 0.08
         if self.qty > 100:
-            raise TooManyMelonsError("No more than 100 melons!")
+            raise TooManyMelonsError("No more than 100 melons! You ordered {} melons.\
+                ".format(self.qty))
 
     def mark_shipped(self):
         """Set shipped to true."""
